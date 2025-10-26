@@ -21,11 +21,16 @@ Jujutsu is unlike most other systems, because internally it abstracts the user i
 %autosetup -C
 cargo fetch --locked
 
+
 %build
 cargo build --release --frozen --bin jj
 
-./target/release/jj util completion bash > jj.bash
-./target/release/jj util completion zsh  > jj.zsh
+OLD_PATH="$PATH"
+export PATH="$PWD/target/release:$PATH"
+COMPLETE=bash jj > jj.bash
+COMPLETE=fish jj > jj.fish
+COMPLETE=zsh  jj > jj.zsh
+export PATH="$OLD_PATH"
 
 ./target/release/jj util install-man-pages .
 
@@ -33,6 +38,7 @@ cargo build --release --frozen --bin jj
 install -Dm755 %{_builddir}/%{buildsubdir}/target/release/jj %{buildroot}%{_bindir}/jj
 
 install -Dm644 %{_builddir}/%{buildsubdir}/jj.bash %{buildroot}%{bash_completions_dir}/jj
+install -Dm644 %{_builddir}/%{buildsubdir}/jj.fish %{buildroot}%{fish_completions_dir}/jj.fish
 install -Dm644 %{_builddir}/%{buildsubdir}/jj.zsh  %{buildroot}%{zsh_completions_dir}/_jj
 
 install -dm755 %{buildroot}%{_mandir}
@@ -43,6 +49,7 @@ cp -a %{_builddir}/%{buildsubdir}/man1 %{buildroot}%{_mandir}
 %{_bindir}/jj
 
 %{bash_completions_dir}/jj
+%{fish_completions_dir}/jj.fish
 %{zsh_completions_dir}/_jj
 
 %{_mandir}/man1/jj.1*
