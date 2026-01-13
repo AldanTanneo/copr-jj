@@ -1,7 +1,7 @@
 name: Build new release
 on:
   schedule:
-    - cron: "0 0 * * *" # every day at 12:00 AM UTC
+    - cron: "0 6 * * *" # every day at 06:00 AM
   workflow_dispatch: {}
 
 jobs:
