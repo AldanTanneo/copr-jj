@@ -1,5 +1,5 @@
 Name:           jj-cli
-Version:        0.42.0
+Version:        0.43.0
 Release:        %{autorelease}
 Summary:        A Git-compatible VCS that is both simple and powerful
 
