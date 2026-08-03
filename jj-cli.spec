@@ -1,14 +1,14 @@
 Name:           jj-cli
 Version:        0.43.0
-Release:        %{autorelease}
+Release:        2%{?dist}
 Summary:        A Git-compatible VCS that is both simple and powerful
 
 License:        Apache-2.0
 URL:            https://github.com/jj-vcs/jj
 Source0:        https://github.com/jj-vcs/jj/archive/refs/tags/v%{version}.tar.gz
 
-BuildRequires:  rust >= 1.88
-BuildRequires:  cargo >= 1.88
+BuildRequires:  rust >= 1.89
+BuildRequires:  cargo >= 1.89
 
 Requires:       git
 
@@ -56,4 +56,12 @@ cp -a %{_builddir}/%{buildsubdir}/man1 %{buildroot}%{_mandir}
 %{_mandir}/man1/jj-*.1*
 
 %changelog
-%autochangelog
+* Mon Aug 03 2026 César Sagaert <aldantanneo@gmail.com> - 0.43.0-2
+- add manual changelog to spec
+- bump minimum supported rust version to 1.89
+* Mon Oct 27 2025 César Sagaert <aldantanneo@gmail.com> - 0.34.0-2
+- package completions and manpages
+- package dynamic completions (w/ fish)
+* Mon Oct 20 2025 César Sagaert <aldantanneo@gmail.com> - 0.34.0-1
+- add base .spec
+- add --locked flag to cargo

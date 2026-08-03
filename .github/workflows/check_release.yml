@@ -30,6 +30,7 @@ jobs:
         if: ${{ steps.check.outputs.updated }}
         run: |
           sed -i "s/${CURRENT}/${LATEST}/" jj-cli.spec
+          sed -i -E "s/^(Release: *).*$/\11%{?dist}/" jj-cli.spec
           git add jj-cli.spec
           git -c user.name=web-flow -c user.email=noreply@github.com commit -m "update to ${LATEST}"
           git push
