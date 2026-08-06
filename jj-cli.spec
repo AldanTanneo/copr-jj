@@ -1,6 +1,6 @@
 Name:           jj-cli
-Version:        0.43.0
-Release:        2%{?dist}
+Version:        0.44.0
+Release:        1%{?dist}
 Summary:        A Git-compatible VCS that is both simple and powerful
 
 License:        Apache-2.0
