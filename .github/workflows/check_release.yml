@@ -25,11 +25,15 @@ jobs:
 
           if [ "x${LATEST}" != "x${CURRENT}" ]; then
             echo "updated=true" >> "$GITHUB_OUTPUT"
+            echo "latest=${LATEST}" >> "$GITHUB_OUTPUT"
+            echo "current=${CURRENT}" >> "$GITHUB_OUTPUT"
           fi
       - name: Update spec
         if: ${{ steps.check.outputs.updated }}
         run: |
-          sed -i "s/${CURRENT}/${LATEST}/" jj-cli.spec
+          LATEST=${{ steps.check.outputs.latest }}
+          CURRENT=${{ steps.check.outputs.current }}
+          sed -i -E "s/^(Version: *)${CURRENT}$/\1${LATEST}/" jj-cli.spec
           sed -i -E "s/^(Release: *).*$/\11%{?dist}/" jj-cli.spec
           git add jj-cli.spec
           git -c user.name=web-flow -c user.email=noreply@github.com commit -m "update to ${LATEST}"
